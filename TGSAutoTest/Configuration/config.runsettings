@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- Configurations that affect the Test Framework -->
+  <!--  See https://docs.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file -->
+  <RunConfiguration>
+    <MaxCpuCount>5</MaxCpuCount>
+    <!-- Path relative to solution directory -->
+    <!--<ResultsDirectory>.\TestResults</ResultsDirectory> -->
+
+    <!--TestSessionTimeout is only available with Visual Studio 2017 version 15.5 and higher -->
+    <!-- Specify timeout in milliseconds. A valid value should be greater than 0 -->
+    <!--TestSessionTimeout>10000</TestSessionTimeout> -->
+  </RunConfiguration>
+
+  <!-- Configurations for data collectors -->
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <!--Video data collector is only available with Visual Studio 2017 version 15.5 and higher -->
+      <DataCollector uri="datacollector://microsoft/VideoRecorder/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TestTools.DataCollection.VideoRecorder.VideoRecorderDataCollector, Microsoft.VisualStudio.TestTools.DataCollection.VideoRecorder, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" friendlyName="Screen and Voice Recorder">
+      </DataCollector>
+
+    </DataCollectors>
+  </DataCollectionRunSettings>
+
+  <TestRunParameters>
+    <Parameter name="targetUrl" value="http://localhost:4202" />
+    <Parameter name="pageLoadTimeout" value="150" />
+    <Parameter name="waitTimeout" value="40" />
+    <Parameter name="paymentTimeout" value="70" />
+    <Parameter name="browser" value="Chrome" />
+    <!-- <Parameter name="conectionBBDD" value="user id=sa;password=123456789;server=192.168.99.100, 1434;database=TGS" /> -->
+    <Parameter name="conectionBBDD" value="Integrated Security=SSPI;server=localhost;database=TGS" />
+    <Parameter name="user" value="moissortegarodrg1" />
+    <Parameter name="key" value="rR4c7uF48myD9hE4sqj5" />
+    <Parameter name="server" value="hub-cloud.browserstack.com" />
+  </TestRunParameters>
+  <configuration>
+    <configSections>
+      <sectionGroup name="capabilities">
+        <section name="single" type="System.Configuration.AppSettingsSection, System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      </sectionGroup>
+      
+      <sectionGroup name="environments">
+        <section name="chrome" type="System.Configuration.AppSettingsSection, System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      </sectionGroup>
+    </configSections>
+
+    <appSettings>
+      <add key="user" value="moissortegarodrg1" />
+      <add key="key" value="rR4c7uF48myD9hE4sqj5" />
+      <add key="server" value="hub-cloud.browserstack.com" />
+    </appSettings>
+    
+  </configuration>
+</RunSettings>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TGSAutoTest", "TGSAutoTest\TGSAutoTest.csproj", "{EC74E695-17C1-4DD4-BE29-4D17A89AF54C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC74E695-17C1-4DD4-BE29-4D17A89AF54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC74E695-17C1-4DD4-BE29-4D17A89AF54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC74E695-17C1-4DD4-BE29-4D17A89AF54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC74E695-17C1-4DD4-BE29-4D17A89AF54C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {79A743CB-4C82-47AB-86ED-C5E87BB36F50}
+	EndGlobalSection
+EndGlobal

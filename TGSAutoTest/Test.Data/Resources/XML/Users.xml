@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Users>
+  <User>
+    <UserType>UserOK</UserType>
+    <UserName>Tester</UserName>
+    <Password>tester123</Password>
+  </User>
+  <User>
+    <UserType>UserFullKO</UserType>
+    <UserName>qsefguhf</UserName>
+    <Password>fomi njew</Password>
+  </User>
+  <User>
+    <UserType>UserNoName</UserType>
+    <UserName></UserName>
+    <Password>tester123</Password>
+  </User>
+  <User>
+    <UserType>UserNoPasswd</UserType>
+    <UserName>Tester</UserName>
+    <Password></Password>
+  </User>
+  <User>
+    <UserType>UserNothing</UserType>
+    <UserName></UserName>
+    <Password></Password>
+  </User>
+  <User>
+    <UserType>NewUser</UserType>
+    <UserName>Prueba</UserName>
+    <Password>prueba123</Password>
+  </User>
+  <User>
+    <UserType>UserManager</UserType>
+    <UserName>QAmanager</UserName>
+    <Password>qamanager1234</Password>
+  </User>
+</Users>
