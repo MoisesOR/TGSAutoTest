@@ -100,6 +100,8 @@ namespace TGSAutoTest.Tests
             groupListPage = new GroupListPage(setUpWebDriver);
             groupConnection = new GroupConnection();
             #endregion
+
+            Logger(Status.Info, "Empieza el test: " + TestContext.CurrentContext.Test.Name, true);
         }
 
         [TearDown]
@@ -139,6 +141,17 @@ namespace TGSAutoTest.Tests
             page.CloseDriver();
             Thread.Sleep(1000);
         }
+        public void Logger(Status statusLog, string msg, bool doIt)
+        {
+            if (doIt)
+            {
+                test.Log(statusLog, msg, MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            }
+            else
+            {
+                test.Log(statusLog, msg);
+            }
+        }
     }
     public class TestHelpers
     {
@@ -156,5 +169,4 @@ namespace TGSAutoTest.Tests
             }
         }
     }
-
 }

@@ -19,12 +19,11 @@ namespace TGSAutoTest.Tests
         [TestCase("UserNothing")]
         public void Login(string userType)
         {
-            test.Log(Status.Info, "Empieza el test: " + TestContext.CurrentContext.Test.Name);
             var userName = objectsTests.UserType(userType).UserName;
             var userPassword = objectsTests.UserType(userType).Password;
-
             homePage.SignIn(userName, userPassword);
-            test.Log(Status.Info, "El usuario hace log in: ", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "El usuario hace log in: ", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "El usuario hace log in: ", true);
             homePage.ContinueSignIn();
             var isError = homePage.CheckErrorLogin();
 
@@ -39,7 +38,6 @@ namespace TGSAutoTest.Tests
         [TestCase("NewUser")]
         public void E2E_AlbumFullCreate(string userType)
         {
-            test.Log(Status.Info, "Empieza el test: " + TestContext.CurrentContext.Test.Name);
             var userName = objectsTests.UserType(userType).UserName;
             var userPassword = objectsTests.UserType(userType).Password;
             Album album = new Album(Helpers.GenerateName(), Helpers.GenerateArtist(), Helpers.GetRandomYear(), Helpers.GetRandomString(7), Helpers.GetRandomString(7));
@@ -53,21 +51,26 @@ namespace TGSAutoTest.Tests
             Console.WriteLine("El usuario se ha borrado: {0}", checkIfUserDeleted);
             Console.WriteLine("El usuario existe: {0}", checkUser);
 
-            test.Log(Status.Pass, "El usuario existe: " + firstCheckUser);
-            test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
-            test.Log(Status.Info, "El usuario existe: " + checkUser);
+            //test.Log(Status.Pass, "El usuario existe: " + firstCheckUser);
+            Logger(Status.Pass, "El usuario existe: " + firstCheckUser, false);
+            //test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
+            Logger(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted, false);
+            //test.Log(Status.Info, "El usuario existe: " + checkUser);
+            Logger(Status.Info, "El usuario existe: " + checkUser, false);
 
             //Creacion el usuario
             homePage.ChangeFront(FrontType.CA);
             homePage.RegisterNewUser(userName, userPassword);
-            test.Log(Status.Info, "Registro del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Registro del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Registro del usuario.", true);
             homePage.ContinueRegister();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha registrado correctamente.");
             Assert.True(userConnection.CheckUser(userName), "El usuario no se ha creado correctamente en la base de datos.");
 
 
             homePage.SignIn(userName, userPassword);
-            test.Log(Status.Info, "Log in con el nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Log in con el nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Log in con el nuevo usuario.", true);
             homePage.ContinueSignIn();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha logeado correctamente.");
             Assert.IsTrue(page.GetCurrentUrl().Contains("albumList"), "Redireccion incorrecta.");
@@ -77,7 +80,8 @@ namespace TGSAutoTest.Tests
             Assert.IsTrue(page.GetCurrentUrl().Contains("createAlbum"), "Redireccion incorrecta.");
 
             createAlbumPage.CrearAlbum(album);
-            test.Log(Status.Info, "Creacion del album.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Creacion del album.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Creacion del album.", true);
             createAlbumPage.Continue();
             Assert.False(createAlbumPage.CheckErrorDiv(), "Error al crear el album.");
             Assert.True(albumConection.CheckAlbumName(album), "El album no se ha creado correctamente en la base de datos.");
@@ -88,7 +92,6 @@ namespace TGSAutoTest.Tests
         [TestCase("NewUser")]
         public void E2E_AlbumFullDelete(string userType)
         {
-            test.Log(Status.Info, "Empieza el test: " + TestContext.CurrentContext.Test.Name);
             var userName = objectsTests.UserType(userType).UserName;
             var userPassword = objectsTests.UserType(userType).Password;
             Album album = new Album(Helpers.GenerateName(), Helpers.GenerateArtist(), Helpers.GetRandomYear(), Helpers.GetRandomString(7), Helpers.GetRandomString(7));
@@ -102,20 +105,25 @@ namespace TGSAutoTest.Tests
             Console.WriteLine("El usuario se ha borrado: {0}", checkIfUserDeleted);
             Console.WriteLine("El usuario existe: {0}", checkUser);
 
-            test.Log(Status.Info, "El usuario existe: " + firstCheckUser);
-            test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
-            test.Log(Status.Info, "El usuario existe: " + checkUser);
+            //test.Log(Status.Info, "El usuario existe: " + firstCheckUser);
+            Logger(Status.Info, "El usuario existe: " + firstCheckUser, false);
+            //test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
+            Logger(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted, false);
+            //test.Log(Status.Info, "El usuario existe: " + checkUser);
+            Logger(Status.Info, "El usuario existe: " + checkUser, false);
 
             //Creacion el usuario
             homePage.ChangeFront(FrontType.CA);
             homePage.RegisterNewUser(userName, userPassword);
-            test.Log(Status.Info, "Creacion del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Creacion del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Creacion del usuario.", true);
             homePage.ContinueRegister();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha registrado correctamente.");
             Assert.True(userConnection.CheckUser(userName), "El usuario no se ha creado correctamente en la base de datos.");
 
             homePage.SignIn(userName, userPassword);
-            test.Log(Status.Info, "Sign In del nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Sign In del nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Sign In del nuevo usuario.", true);
             homePage.ContinueSignIn();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha logeado correctamente.");
             Assert.IsTrue(page.GetCurrentUrl().Contains("albumList"), "Redireccion incorrecta.");
@@ -125,7 +133,8 @@ namespace TGSAutoTest.Tests
             Assert.IsTrue(page.GetCurrentUrl().Contains("createAlbum"), "Redireccion incorrecta.");
 
             createAlbumPage.CrearAlbum(album);
-            test.Log(Status.Info, "Album creado correctamente.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Album creado correctamente.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Album creado correctamente.", true);
             createAlbumPage.Continue();
             Assert.False(createAlbumPage.CheckErrorDiv(), "Error al crear el album.");
             Assert.True(albumConection.CheckAlbumName(album), "El album no se ha creado correctamente en la base de datos.");
@@ -135,7 +144,8 @@ namespace TGSAutoTest.Tests
 
             var albumId = albumConection.GetAlbumId(album);
             albumListPage.DeleteAlbum(albumId);
-            test.Log(Status.Info, "Album creado correctamente.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Album creado correctamente.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Album creado correctamente.", true);
             Assert.False(albumConection.CheckAlbumName(album), "El album no se ha eliminado de la BBDD.");
             Assert.False(albumListPage.IsDeleted(albumId), "El album no se ha eliminado correctamente.");
 
@@ -145,7 +155,6 @@ namespace TGSAutoTest.Tests
         [TestCase("NewUser")]
         public void E2E_AlbumFullUpdate(string userType)
         {
-            test.Log(Status.Info, "Empieza el test: " + TestContext.CurrentContext.Test.Name);
             var userName = objectsTests.UserType(userType).UserName;
             var userPassword = objectsTests.UserType(userType).Password;
             Album album = new Album(Helpers.GenerateName(), Helpers.GenerateArtist(), Helpers.GetRandomYear(), Helpers.GetRandomString(7), Helpers.GetRandomString(7));
@@ -160,20 +169,25 @@ namespace TGSAutoTest.Tests
             Console.WriteLine("El usuario se ha borrado: {0}", checkIfUserDeleted);
             Console.WriteLine("El usuario existe: {0}", checkUser);
 
-            test.Log(Status.Info, "El usuario existe: " + firstCheckUser);
-            test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
-            test.Log(Status.Info, "El usuario existe: " + checkUser);
+            //test.Log(Status.Info, "El usuario existe: " + firstCheckUser);
+            Logger(Status.Info, "El usuario existe: " + firstCheckUser, false);
+            //test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
+            Logger(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted, false);
+            //test.Log(Status.Info, "El usuario existe: " + checkUser);
+            Logger(Status.Info, "El usuario existe: " + checkUser, false);
 
             //Creacion el usuario
             homePage.ChangeFront(FrontType.CA);
             homePage.RegisterNewUser(userName, userPassword);
-            test.Log(Status.Info, "Creacion del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Creacion del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Creacion del usuario.", true);
             homePage.ContinueRegister();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha registrado correctamente.");
             Assert.True(userConnection.CheckUser(userName), "El usuario no se ha creado correctamente en la base de datos.");
 
             homePage.SignIn(userName, userPassword);
-            test.Log(Status.Info, "Sign In del nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Sign In del nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Sign In del nuevo usuario.", true);
             homePage.ContinueSignIn();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha logeado correctamente.");
             Assert.IsTrue(page.GetCurrentUrl().Contains("albumList"), "Redireccion incorrecta.");
@@ -183,7 +197,8 @@ namespace TGSAutoTest.Tests
             Assert.IsTrue(page.GetCurrentUrl().Contains("createAlbum"), "Redireccion incorrecta.");
 
             createAlbumPage.CrearAlbum(album);
-            test.Log(Status.Info, "Creacion del album.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Creacion del album.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Creacion del album.", true);
             createAlbumPage.Continue();
             Assert.False(createAlbumPage.CheckErrorDiv(), "Error al crear el album.");
             Assert.True(albumConection.CheckAlbumName(album), "El album no se ha creado correctamente en la base de datos.");
@@ -194,7 +209,8 @@ namespace TGSAutoTest.Tests
             Album updateAlbum = new Album(Helpers.GenerateName(), Helpers.GenerateArtist(), Helpers.GetRandomYear(), Helpers.GetRandomString(7), Helpers.GetRandomString(7));
             updateAlbumPage.SelectId(albumConection.GetAlbumId(album));
             updateAlbumPage.UpdateAlbum(updateAlbum);
-            test.Log(Status.Info, "Actualizacion del album.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Actualizacion del album.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Actualizacion del album.", true);
             updateAlbumPage.Continue();
 
             Assert.True(albumConection.CheckAlbumName(updateAlbum), "El album no se ha actualizado correctamente en la base de datos.");
@@ -211,10 +227,9 @@ namespace TGSAutoTest.Tests
         [TestCase("NewUser")]
         public void FullE2E_GroupCreateUpdateDelete(string userType)
         {
-            test.Log(Status.Info, "Empieza el test: " + TestContext.CurrentContext.Test.Name);
             var userName = objectsTests.UserType(userType).UserName;
             var userPassword = objectsTests.UserType(userType).Password;
-            Group group = new Group(Helpers.GenerateName(), Helpers.GetRandomNumberBetween(0,1790), Helpers.GetRandomNumberBetween(1790, DateTime.Today.Year), Helpers.GetRandomString(7), Helpers.GetRandomString(7), Helpers.GetRandomString(7), Helpers.GetRandomString(20));
+            Group group = new Group(Helpers.GenerateName(), Helpers.GetRandomNumberBetween(0, 1790), Helpers.GetRandomNumberBetween(1790, DateTime.Today.Year), Helpers.GetRandomString(7), Helpers.GetRandomString(7), Helpers.GetRandomString(7), Helpers.GetRandomString(20));
             Console.WriteLine("Nombre del group: {0}", group.Name);
 
             //Borramos el mismo usuario si esta en la base de datos
@@ -226,20 +241,25 @@ namespace TGSAutoTest.Tests
             Console.WriteLine("El usuario se ha borrado: {0}", checkIfUserDeleted);
             Console.WriteLine("El usuario existe: {0}", checkUser);
 
-            test.Log(Status.Info, "El usuario existe: " + firstCheckUser);
-            test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
-            test.Log(Status.Info, "El usuario existe: " + checkUser);
+            //test.Log(Status.Info, "El usuario existe: " + firstCheckUser);
+            Logger(Status.Info, "El usuario existe: " + firstCheckUser, false);
+            //test.Log(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted);
+            Logger(Status.Info, "El usuario se ha borrado: " + checkIfUserDeleted, false);
+            //test.Log(Status.Info, "El usuario existe: " + checkUser);
+            Logger(Status.Info, "El usuario existe: " + checkUser, false);
 
             //Creacion el usuario
             homePage.ChangeFront(FrontType.CA);
             homePage.RegisterNewUser(userName, userPassword);
-            test.Log(Status.Info, "Creacion del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Creacion del usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Creacion del usuario.", true);
             homePage.ContinueRegister();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha registrado correctamente.");
             Assert.True(userConnection.CheckUser(userName), "El usuario no se ha creado correctamente en la base de datos.");
 
             homePage.SignIn(userName, userPassword);
-            test.Log(Status.Info, "Sign In del nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Sign In del nuevo usuario.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Sign In del nuevo usuario.", true);
             homePage.ContinueSignIn();
             Assert.False(homePage.CheckErrorLogin(), "Error, el usuario no se ha logeado correctamente.");
             Assert.IsTrue(page.GetCurrentUrl().Contains("albumList"), "Redireccion incorrecta.");
@@ -249,7 +269,8 @@ namespace TGSAutoTest.Tests
             Assert.IsTrue(page.GetCurrentUrl().Contains("createGroup"), "Redireccion incorrecta.");
 
             createGroupPage.CrearGroup(group);
-            test.Log(Status.Info, "Creacion del grupo.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Creacion del grupo.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Creacion del grupo.", true);
             createGroupPage.Continue();
             Assert.False(createGroupPage.CheckErrorDiv(), "Error al crear el grupo.");
             Assert.True(groupConnection.CheckGroupName(group), "El album no se ha creado correctamente en la base de datos.");
@@ -260,7 +281,8 @@ namespace TGSAutoTest.Tests
             Group updateGroup = new Group(Helpers.GenerateName(), Helpers.GetRandomNumberBetween(0, 1790), Helpers.GetRandomNumberBetween(1790, DateTime.Today.Year), Helpers.GetRandomString(7), Helpers.GetRandomString(7), Helpers.GetRandomString(7), Helpers.GetRandomString(20));
             updateGroupPage.SelectId(groupConnection.GetGroupId(group));
             updateGroupPage.UpdateGroup(updateGroup);
-            test.Log(Status.Info, "Actualizacion del grupo.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            //test.Log(Status.Info, "Actualizacion del grupo.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Actualizacion del grupo.", true);
             updateGroupPage.Continue();
 
             Assert.IsFalse(updateGroupPage.IsError(), "Error al actualizar el grupo.");
@@ -272,11 +294,10 @@ namespace TGSAutoTest.Tests
             //Eliminar el grupo actualizado
             var groupId = groupConnection.GetGroupId(updateGroup);
             groupListPage.DeleteGroup(groupId);
-            test.Log(Status.Info, "Album borrado correctamente.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
-
+            //test.Log(Status.Info, "Album borrado correctamente.", MediaEntityBuilder.CreateScreenCaptureFromPath(page.TakeScreenshot(SetUpFixtureBase.HTMLPath)).Build());
+            Logger(Status.Info, "Album borrado correctamente.", true);
             Assert.False(groupConnection.CheckGroupName(updateGroup), "El grupo no se ha eliminado de la BBDD.");
             Assert.False(groupListPage.IsDeleted(groupId), "El grupo no se ha eliminado correctamente.");
-            
 
             Assert.Pass("El grupo se ha creado, actualizado y borrado correctamente.");
         }
